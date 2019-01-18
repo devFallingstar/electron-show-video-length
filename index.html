@@ -10,6 +10,8 @@
     <button type="submit">Get Info</button>
   </form>
 
+<h1 id="result"></h1>
+
 <!-- Add custom function for button submit -->
 <!-- Select the form tag element and add event listener that listen submimt -->
   <script type="text/javascript">
@@ -20,10 +22,14 @@
       event.preventDefault();
       const { path } = document.querySelector('input').files[0];
 
-      ipcRenderer.send('video:submit', path);
+      ipcRenderer.send('path:send', path);
 
       // debugger //The brower should pause here and check with debugger
 
+    });
+
+    ipcRenderer.on('duration:send', (event, duration) => {
+      document.querySelector('#result').innerHTML = `Video is ${duration} seconds`;
     });
   </script>
 
